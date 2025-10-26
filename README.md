@@ -1,50 +1,96 @@
-# Welcome to your Expo app 👋
+# React Native 3D Template
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A minimal yet powerful starting point for building 3D experiences in React Native
 
-## Get started
+**_Powered by React Three Fiber and react-native-wgpu_**
 
-1. Install dependencies
+![Image](https://github.com/user-attachments/assets/b3f9dd8a-25a6-4bbd-a168-3a1ece42e5bd)
 
-   ```bash
-   npm install
-   ```
+## Overview
 
-2. Start the app
+This template brings modern 3D graphics to React Native via the DAWN implementation of WebGPU. It provides a zero-setup entry point to experiment with Three.js, React Three Fiber, and WebGPU directly on iOS and Android.
 
-   ```bash
-   npx expo start
-   ```
+Whether you want to prototype real-time visualizations, experiment with physics and shading, or push React Native rendering to the limit, this template gives you a clean foundation to start.
 
-In the output, you'll find options to open the app in a
+### 🧩 Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- React Native + Expo — cross-platform runtime
+- React Three Fiber — declarative 3D scene management
+- react-native-wgpu — native WebGPU bindings for iOS & Android
+- Three.js (WebGPURenderer) — running on the DAWN WebGPU backend
+- TypeScript — for type-safe, editor-friendly development
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### ⚙️ Getting Started
 
-## Get a fresh project
+Clone and run:
 
-When you're ready, run:
+- `npx degit aarongrider/react-native-3d-template my-3d-app`
+- `cd my-3d-app`
+- `npm install && npm run prebuild`
+- `npm run start`
 
-```bash
-npm run reset-project
-```
+Open the app on iOS or Android, and you’ll see a simple rotating mesh rendered via WebGPU. Even the simulator is supported!
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🧠 What’s Included
 
-## Learn more
+✅ Working WebGPU context via react-native-wgpu
 
-To learn more about developing your project with Expo, look at the following resources:
+✅ Minimal React Three Fiber scene setup
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+✅ Pre-configured Expo + Metro bundler
 
-## Join the community
+✅ TypeScript + ESLint base config
 
-Join our community of developers creating universal apps.
+✅ Hot reload support for rapid iteration
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🧵 Roadmap & Upcoming Features
+
+This project is still early-stage — expect rapid iteration. Planned work includes:
+
+🔹 Improved orbit controls + reusable components and utilities
+
+🔹 Threaded rendering: run Three.js on separate threads via Reanimated Worklets
+
+🔹 Scene management examples: lights, post-processing, shadows
+
+🔹 Material & shader playground
+
+🔹 Integration demos: Reanimated, gesture handlers, and UI overlays
+
+🔹 WebGPU performance profiling tools
+
+If you’re experimenting with any of these ideas — contributions and discussion are welcome.
+
+## 🧱 Philosophy
+
+This repo aims to:
+
+- Prove that React Native can run true GPU workloads efficiently
+- Offer a familiar Three.js developer experience on mobile
+- Explore next-generation graphics threading in JS runtimes
+- Serve as a foundation for advanced experiments: AR, visualization, simulation, and beyond
+
+## 🧪 Status
+
+Currently experimental.
+React-native-wgpu is still under active development.
+Expect breaking changes, missing features, and the occasional driver-level quirk, but that’s part of the fun.
+
+If you’re here early, you’re exploring the frontier. 🛰️
+
+## 📚 Learn More
+
+[WebGPU specification](https://www.w3.org/TR/webgpu/)
+
+[react-native-wgpu](https://github.com/wcandillon/react-native-webgpu)
+
+[React Three Fiber](https://github.com/pmndrs/react-three-fiber)
+
+## 🤝 Contributing
+
+Contributions, bug reports, and discussions are welcome.
+Open a PR or start a conversation! Especially around threading, performance, and multi-pass rendering.
+
+## 🪐 License
+
+MIT © 2025 Aaron Grider

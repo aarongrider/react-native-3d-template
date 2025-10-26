@@ -3,15 +3,11 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "three": ["./node_modules/@types/three/src/Three.WebGPU.d.ts"],
+      "three/tsl": ["./node_modules/@types/three/src/Three.TSL.d.ts"],
+      "three/addons/*": ["./node_modules/@types/three/examples/jsm/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
