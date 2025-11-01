@@ -4,6 +4,8 @@ import { WebGPURenderer } from "three";
 export class ReactNativeCanvas {
   constructor(private canvas: NativeCanvas) {}
 
+  private listeners: Map<string, EventListener[]> = new Map();
+
   get width() {
     return this.canvas.width;
   }
@@ -36,11 +38,33 @@ export class ReactNativeCanvas {
     this.canvas.height = height;
   }
 
-  addEventListener(_type: string, _listener: EventListener) {}
+  addEventListener(type: string, _listener: EventListener) {
+    const cbs = this.listeners.get(type) || [];
+    cbs.push(_listener);
+    this.listeners.set(type, cbs);
+  }
 
-  removeEventListener(_type: string, _listener: EventListener) {}
+  removeEventListener(type: string, _listener: EventListener) {
+    const cbs = this.listeners.get(type) || [];
+    this.listeners.set(
+      type,
+      cbs.filter((cb) => cb !== _listener)
+    );
+  }
 
-  dispatchEvent(_event: Event) {}
+  dispatchEvent(event: any) {
+    event.target = this;
+    const cbs = this.listeners.get(event.type);
+    if (cbs) {
+      cbs.forEach((cb) => cb(event));
+    }
+  }
+
+  /*
+  getRootNode() {
+    return this;
+  }
+    */
 
   setPointerCapture() {}
 

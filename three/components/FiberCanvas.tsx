@@ -5,10 +5,11 @@ import {
   extend,
   unmountComponentAtNode,
 } from "@react-three/fiber";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import type { ViewProps } from "react-native";
 import { PixelRatio } from "react-native";
-import { Canvas, useCanvasEffect } from "react-native-wgpu";
+import type { CanvasRef } from "react-native-wgpu";
+import { Canvas } from "react-native-wgpu";
 import * as THREE from "three";
 
 import { makeWebGPURenderer, ReactNativeCanvas } from "./makeWebGPURenderer";
@@ -26,12 +27,19 @@ export const FiberCanvas = ({
   scene,
   camera,
 }: FiberCanvasProps) => {
-  const root = useRef<ReconcilerRoot<OffscreenCanvas>>(null!);
+  const root = useRef<ReconcilerRoot<OffscreenCanvas>>(null);
 
-  React.useMemo(() => extend(THREE as any), []);
+  const canvasRef = useRef<CanvasRef>(null);
 
-  const canvasRef = useCanvasEffect(async () => {
-    const context = canvasRef.current!.getContext("webgpu")!;
+  useEffect(() => {
+    extend(THREE as any);
+
+    const context = canvasRef.current?.getContext("webgpu");
+
+    if (context == null) {
+      return;
+    }
+
     const renderer = makeWebGPURenderer(context);
 
     // @ts-expect-error
@@ -55,7 +63,7 @@ export const FiberCanvas = ({
       camera,
       gl: renderer,
       frameloop: "always",
-      dpr: 1, //PixelRatio.get(),
+      dpr: 1,
       onCreated: async (state: RootState) => {
         await state.gl.init();
         const renderFrame = state.gl.render.bind(state.gl);
@@ -68,10 +76,11 @@ export const FiberCanvas = ({
     root.current.render(children);
     return () => {
       if (canvas != null) {
-        unmountComponentAtNode(canvas!);
+        unmountComponentAtNode(canvas);
       }
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <Canvas ref={canvasRef} style={style} />;
 };

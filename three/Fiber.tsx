@@ -1,6 +1,6 @@
 import { ThreeElements, useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as THREE from "three";
 
 import { FiberCanvas } from "./components/FiberCanvas";
@@ -50,6 +50,7 @@ export const Fiber = () => {
         <Box position={[-1.2, 0, 0]} />
         <Box position={[1.2, 0, 0]} />
       </FiberCanvas>
+      <View style={StyleSheet.absoluteFill} {...events} />
     </View>
   );
 };
