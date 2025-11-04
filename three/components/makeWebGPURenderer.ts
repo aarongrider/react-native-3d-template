@@ -1,10 +1,11 @@
-import type { NativeCanvas } from "react-native-wgpu";
 import { WebGPURenderer } from "three";
 
 export class ReactNativeCanvas {
-  constructor(private canvas: NativeCanvas) {}
+  constructor(private canvas: HTMLCanvasElement | OffscreenCanvas) {}
 
   private listeners: Map<string, EventListener[]> = new Map();
+
+  public ownerDocument = this;
 
   get width() {
     return this.canvas.width;
@@ -60,11 +61,9 @@ export class ReactNativeCanvas {
     }
   }
 
-  /*
   getRootNode() {
     return this;
   }
-    */
 
   setPointerCapture() {}
 

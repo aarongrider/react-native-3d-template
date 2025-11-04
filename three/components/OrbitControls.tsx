@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useFrame, useThree } from "@react-three/fiber";
-import { JSX, useEffect, useMemo } from "react";
+import { JSX, useEffect, useState } from "react";
 import type { GestureResponderEvent, LayoutChangeEvent } from "react-native";
 import type { Matrix4, OrthographicCamera, PerspectiveCamera } from "three";
 import { Quaternion, Spherical, Vector2, Vector3 } from "three";
@@ -53,8 +53,8 @@ const partialScope = {
   ignoreQuickPress: false,
 };
 
-export function createControls() {
-  let height = 0;
+export function useCreateControls() {
+  const [height, setHeight] = useState(0);
 
   const scope = {
     ...partialScope,
@@ -549,7 +549,7 @@ export function createControls() {
     events: {
       // Equivalent to componentDidMount.
       onLayout(event: LayoutChangeEvent) {
-        height = event.nativeEvent.layout.height;
+        setHeight(event.nativeEvent.layout.height);
       },
 
       // See https://reactnative.dev/docs/gesture-responder-system
@@ -595,15 +595,15 @@ type Partial<T> = {
 };
 
 export type OrbitControlsProps = Partial<
-  Omit<ReturnType<typeof createControls>["scope"], "camera">
+  Omit<ReturnType<typeof useCreateControls>["scope"], "camera">
 >;
 
 export type OrbitControlsChangeEvent = Parameters<
-  ReturnType<typeof createControls>["scope"]["onChange"]
+  ReturnType<typeof useCreateControls>["scope"]["onChange"]
 >[0];
 
 type OrbitControlsInternalProps = OrbitControlsProps & {
-  controls: ReturnType<typeof createControls>;
+  controls: ReturnType<typeof useCreateControls>;
 };
 
 function OrbitControls({ controls, ...props }: OrbitControlsInternalProps) {
@@ -635,7 +635,7 @@ function OrbitControls({ controls, ...props }: OrbitControlsInternalProps) {
 }
 
 export default function useControls() {
-  const controls = useMemo(() => createControls(), []);
+  const controls = useCreateControls();
 
   return [
     (props: OrbitControlsProps) => (

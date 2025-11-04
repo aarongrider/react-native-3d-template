@@ -35,7 +35,7 @@ function Box(props: BoxProps) {
 export const Fiber = () => {
   const [OrbitControls, events] = useControls();
   return (
-    <View style={{ flex: 1 }} {...events}>
+    <View style={{ flex: 1 }}>
       <FiberCanvas style={{ flex: 1 }}>
         <OrbitControls />
         <ambientLight intensity={Math.PI / 2} />
